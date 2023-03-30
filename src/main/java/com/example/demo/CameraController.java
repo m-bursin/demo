@@ -11,11 +11,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class CameraController {
 
@@ -35,7 +35,7 @@ public class CameraController {
                         }
                     })
                     .collect(Collectors.toList());
-            ExecutorService pool = Executors.newFixedThreadPool(4);
+            ExecutorService pool = newFixedThreadPool(camerasRaw.size());
             List<Camera> camerasResult = new ArrayList<>();
             for (CameraRaw cameraRaw : camerasRaw) {
                 pool.submit(() -> {
@@ -46,8 +46,7 @@ public class CameraController {
                         CameraToken cameraToken = om.readValue(
                                 requireNonNull(getPageAsStringBuilder(cameraRaw.getTokenDataUrl())).toString(),
                                 CameraToken.class);
-                        Camera camera = aggregateData(cameraRaw, cameraSource, cameraToken);
-                        camerasResult.add(camera);
+                        camerasResult.add(aggregateData(cameraRaw, cameraSource, cameraToken));
                     } catch (JsonProcessingException ignored) {
                     }
                 });
@@ -57,7 +56,10 @@ public class CameraController {
                 pool.awaitTermination(1, TimeUnit.HOURS);
             } catch (InterruptedException ignored) {
             }
-            System.out.println(camerasResult);
+            try {
+                System.out.println(om.writeValueAsString(camerasResult));
+            } catch (JsonProcessingException ignored) {
+            }
         }
     }
 
