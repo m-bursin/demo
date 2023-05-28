@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-class CameraControllerTest {
+class CameraServiceTest {
     WebTestClient webTestClient = WebTestClient.bindToServer().build();
 
     @Test
