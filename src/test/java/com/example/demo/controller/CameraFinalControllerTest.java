@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.DemoApplication;
-import com.example.demo.converter.CameraRawCameraSourceCameraTokenToCameraConverter;
+import com.example.demo.converter.CameraSourceTokenToCameraFinalConverter;
 import com.example.demo.service.CameraService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CameraController.class)
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = DemoApplication.class)
-public class CameraControllerTest {
+public class CameraFinalControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -29,7 +29,7 @@ public class CameraControllerTest {
     CameraService cameraService;
 
     @SpyBean
-    CameraRawCameraSourceCameraTokenToCameraConverter converter;
+    CameraSourceTokenToCameraFinalConverter converter;
 
     @Test
     public void getCameras() throws Exception {

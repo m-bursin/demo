@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @ToString
 @Accessors(chain = true)
 @EqualsAndHashCode
-public class CameraSource {
+public class Source {
     private String urlType;
     private String videoUrl;
 }

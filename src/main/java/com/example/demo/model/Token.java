@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @ToString
 @Accessors(chain = true)
 @EqualsAndHashCode
-public class CameraToken {
+public class Token {
     private String value;
     private Integer ttl;
 }

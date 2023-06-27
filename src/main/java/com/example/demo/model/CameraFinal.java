@@ -9,10 +9,12 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @ToString
-@Accessors(chain = true)
 @EqualsAndHashCode
-public class CameraRaw {
+@Accessors(chain = true)
+public class CameraFinal {
     private Integer id;
-    private String sourceDataUrl;
-    private String tokenDataUrl;
+    private String urlType;
+    private String videoUrl;
+    private String value;
+    private Integer ttl;
 }

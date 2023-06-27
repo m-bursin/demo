@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.CameraSource;
-import com.example.demo.model.CameraToken;
+import com.example.demo.model.Source;
+import com.example.demo.model.Token;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-class CameraServiceTest {
+class CameraFinalServiceTest {
     WebTestClient webTestClient = WebTestClient.bindToServer().build();
 
     @Test
@@ -43,7 +43,7 @@ class CameraServiceTest {
 
     @Test
     void retrieveJsonCameraSource() {
-        CameraSource cameraSource = new CameraSource()
+        Source source = new Source()
                 .setUrlType("LIVE")
                 .setVideoUrl("rtsp://127.0.0.1/1");
 
@@ -52,13 +52,13 @@ class CameraServiceTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType("application/json;charset=UTF-8")
-                .expectBody(CameraSource.class)
-                .isEqualTo(cameraSource);
+                .expectBody(Source.class)
+                .isEqualTo(source);
     }
 
     @Test
     void retrieveJsonCameraToken() {
-        CameraToken cameraToken = new CameraToken()
+        Token token = new Token()
                 .setValue("fa4b588e-249b-11e9-ab14-d663bd873d93")
                 .setTtl(120);
 
@@ -67,7 +67,7 @@ class CameraServiceTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType("application/json;charset=UTF-8")
-                .expectBody(CameraToken.class)
-                .isEqualTo(cameraToken);
+                .expectBody(Token.class)
+                .isEqualTo(token);
     }
 }
